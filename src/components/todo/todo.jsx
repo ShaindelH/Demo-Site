@@ -21,12 +21,12 @@ export const Todo = (props) => {
   return (
   <table>
     <tr>
-    <th colspan={3}>
+    <th colSpan={3}>
     <h1 id = "Todoheader">To Do</h1>
     </th>
     </tr>
     <tr>
-    <td colspan={2}>
+    <td colSpan={2}>
     <TextField id="outlined-basic"  variant="outlined" size= "small"
       placeholder = "Enter Task"
       onChange={(event) => setInputText({text: event.target.value})}
