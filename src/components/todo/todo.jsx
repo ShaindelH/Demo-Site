@@ -2,21 +2,24 @@ import '../app/App.css';
 import {grey, teal} from "@mui/material/colors";
 import {TextField, Checkbox, Button, IconButton} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, {useState} from "react";
+import {React, useState, useContext} from "react";
+import {TodoContext} from "../app/App.js";
 
-export const Todo = (props) => {
 
-  const [todos, setTodos] = useState([]);
+export const Todo = () => { 
+
+const { setTodos, todos} = useContext(TodoContext);
+
+function deleteTodo (deletedTodo) {
+  setTodos(todos.filter(todo => todo.text !== deletedTodo));
+  }
+      
+  function addTodo (inputText) {
+  const newTodos = [...todos, inputText];
+  setTodos(newTodos);
+  }
+
   const [inputText, setInputText] = useState('');
-
-  function addTodo () {
-    const newTodos = [...todos, inputText];
-    setTodos(newTodos);
-  }
-
-  function deleteTodo (deletedTodo) {
-    setTodos(todos.filter(todo => todo.text !== deletedTodo));
-  }
 
   return (
   <table>
@@ -29,17 +32,17 @@ export const Todo = (props) => {
     <td colSpan={2}>
     <TextField id="outlined-basic"  variant="outlined" size= "small"
       placeholder = "Enter Task"
-      onChange={(event) => setInputText({text: event.target.value})}
+      onChange={(event) => setInputText(event.target.value)}
     />
     </td>
     <td>
-    <Button onClick={addTodo} >
+    <Button onClick={() => addTodo(inputText, setTodos)} >
       Add Task
     </Button> 
     </td>
     </tr>     
-    {todos.map((todo) => (<TodoItem text={todo.text} isComplete={todo.isComplete} deleteTodo={deleteTodo}/>
-    ))}
+    {todos.map((todo) => (<TodoItem text={todo.text} isComplete={todo.isComplete} deleteTodo={deleteTodo}/>)
+    )}
   </table>
   );
 }
@@ -52,8 +55,6 @@ const TodoItem = (props) => {
   const handleColorChange = () => {
     setCompleted(!isCompleted);
     setTextColor(isCompleted ? grey : teal);
-
-  console.log({isCompleted});
 };
 
   return (
