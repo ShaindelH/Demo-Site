@@ -2,27 +2,28 @@ import '../app/App.css';
 import {grey, teal} from "@mui/material/colors";
 import {TextField, Checkbox, Button, IconButton} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
-import {React, useState, useContext} from "react";
-import {TodoContext} from "../app/App.js";
-
+import React, {useState, useContext} from "react";
+import {TodoContext} from "../state/todo/todoContext";
 
 export const Todo = () => { 
 
-const { setTodos, todos} = useContext(TodoContext);
+const {todos, setTodos} = useContext(TodoContext);
+const [inputText, setInputText] = useState('');
+const [key, setKey] = useState(0);
 
 function deleteTodo (deletedTodo) {
-  setTodos(todos.filter(todo => todo.text !== deletedTodo));
-  }
+  setTodos(todos.filter(todo => todo.key !== deletedTodo));
+}
       
-  function addTodo (inputText) {
-  const newTodos = [...todos, inputText];
+function addTodo (inputText) {
+  const newTodos = [...todos, {text: inputText, key: key, isComplete: false}];
   setTodos(newTodos);
-  }
+  setKey(key+1);
+}
 
-  const [inputText, setInputText] = useState('');
-
-  return (
-  <table>
+return (
+  <table data-testid="todo">
+    <tbody>
     <tr>
     <th colSpan={3}>
     <h1 id = "Todoheader">To Do</h1>
@@ -30,7 +31,7 @@ function deleteTodo (deletedTodo) {
     </tr>
     <tr>
     <td colSpan={2}>
-    <TextField id="outlined-basic"  variant="outlined" size= "small"
+    <TextField id="outlined-basic" variant="outlined" size= "small"
       placeholder = "Enter Task"
       onChange={(event) => setInputText(event.target.value)}
     />
@@ -41,32 +42,41 @@ function deleteTodo (deletedTodo) {
     </Button> 
     </td>
     </tr>     
-    {todos.map((todo) => (<TodoItem text={todo.text} isComplete={todo.isComplete} deleteTodo={deleteTodo}/>)
-    )}
+    {todos.map((todo) => (<TodoItem todo={todo} deleteTodo={deleteTodo}/>)
+    )}</tbody>
   </table>
   );
 }
 
 const TodoItem = (props) => {
 
-  const [textColor, setTextColor] = useState(teal);
-  const [isCompleted, setCompleted] = useState(false);
+  const {todos, setTodos} = useContext(TodoContext);
 
   const handleColorChange = () => {
-    setCompleted(!isCompleted);
-    setTextColor(isCompleted ? grey : teal);
-};
+    
+  const newTodos = todos.map(todo => {
+
+      if (props.todo.key === todo.key) {
+         return {...todo, isComplete: !todo.isComplete};
+      }
+      else {
+        return todo;
+      }
+    });
+    setTodos(newTodos);
+
+}
 
   return (
   <tr>
-    <td style = {{color:textColor}}> 
-      {props.text} 
+    <td style = {{color: props.todo.isComplete ? grey : teal}}> 
+      {props.todo.text} 
     </td>
     <td>
-      <Checkbox onChange = {handleColorChange} />
+      <Checkbox checked={props.todo.isComplete} onChange = {handleColorChange} />
     </td>
     <td>
-      <IconButton aria-label="delete" size="medium" onClick={() => props.deleteTodo(props.text)}>
+      <IconButton aria-label="delete" size="medium" onClick={() => props.deleteTodo(props.todo.key)}>
          <DeleteIcon fontSize="inherit" />
        </IconButton>
    </td>

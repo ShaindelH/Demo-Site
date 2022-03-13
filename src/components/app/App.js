@@ -2,32 +2,26 @@ import "./App.css";
 import {Home} from "../home/home";
 import {Todo} from "../todo/todo";
 import React from "react";
-import {useState} from 'react';
+//import {useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "../header/header";
+import{Chat} from  "../chat/chat";
+import { TodoProvider } from "../state/todo/todoContext";
 
-export const TodoContext = React.createContext();
 function App (){
-
-const [todos, setTodos] = useState([]);
 
   return (
     <div>
-      <TodoContext.Provider
-        value= {{
-          todos,
-          setTodos,
-        }}
-      >
+      <TodoProvider>
       <BrowserRouter>
       <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/todo" element={<Todo />} />
+          <Route path= "/chat" element={<Chat/>} />
         </Routes>
       </BrowserRouter>
-      </TodoContext.Provider>
-
+      </TodoProvider>
     </div>
   );
 }
