@@ -1,0 +1,43 @@
+.chatRoom {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: blue;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto 65% auto;
+  min-width: 200px;
+  min-height: 60%;
+  grid-gap: 15px;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100%;
+  min-width: 85%;
+  margin: 10%;
+}
+
+.fullRow {
+  grid-column: span 2;
+}
+
+.message {
+  margin: 5px;
+  min-height: 400px;
+  max-height: 500px;
+  min-width: 600px;
+  background-color: rgb(122, 119, 119);
+  border-radius: 5%;
+  box-shadow: -2px 2px 2px 0 rgba(178, 178, 178, 0.4);
+  overflow-y: scroll;
+}
+
+#msg {
+  margin: 10px;
+  color: teal;
+}

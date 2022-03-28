@@ -54,7 +54,7 @@ const TodoItem = (props) => {
 
   const handleColorChange = () => {
     
-  const newTodos = todos.map(todo => {
+    const newTodos = todos.map(todo => {
 
       if (props.todo.key === todo.key) {
          return {...todo, isComplete: !todo.isComplete};
@@ -69,7 +69,7 @@ const TodoItem = (props) => {
 
   return (
   <tr>
-    <td style = {{color: props.todo.isComplete ? grey : teal}}> 
+    <td style= {{color: props.todo.isComplete ? grey : teal}}> 
       {props.todo.text} 
     </td>
     <td>
