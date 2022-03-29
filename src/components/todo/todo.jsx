@@ -1,5 +1,4 @@
 import '../app/App.css';
-import {grey, teal} from "@mui/material/colors";
 import {TextField, Checkbox, Button, IconButton} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, {useState, useContext} from "react";
@@ -52,7 +51,7 @@ const TodoItem = (props) => {
 
   const {todos, setTodos} = useContext(TodoContext);
 
-  const handleColorChange = () => {
+  const handleChange = () => {
     
     const newTodos = todos.map(todo => {
 
@@ -69,11 +68,11 @@ const TodoItem = (props) => {
 
   return (
   <tr>
-    <td style= {{color: props.todo.isComplete ? grey : teal}}> 
+    <td> 
       {props.todo.text} 
     </td>
     <td>
-      <Checkbox checked={props.todo.isComplete} onChange = {handleColorChange} />
+      <Checkbox checked={props.todo.isComplete} onChange = {handleChange} />
     </td>
     <td>
       <IconButton aria-label="delete" size="medium" onClick={() => props.deleteTodo(props.todo.key)}>

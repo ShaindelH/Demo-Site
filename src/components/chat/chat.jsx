@@ -5,7 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { useInterval } from "../hooks/use-interval";
 import {ChatBubble} from './chatBubble';
-import { FormControl, TextField, Button, Card, MenuItem, Select,CardContent } from '@mui/material';
+import { FormControl, TextField, Button, MenuItem, Select,CardContent } from '@mui/material';
 import "./chat.css";
 
 export const Chat = () => { 
