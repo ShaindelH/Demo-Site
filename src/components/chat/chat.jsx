@@ -5,14 +5,14 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { useInterval } from "../hooks/use-interval";
 import {ChatBubble} from './chatBubble';
-import { FormControl, TextField, Button, MenuItem, Select,CardContent } from '@mui/material';
+import { FormControl, TextField, Button, MenuItem, Select } from '@mui/material';
 import "./chat.css";
 
 export const Chat = () => { 
 
     const [chats, setChats] = useState([{}]);
     const [messages, setMessages] = useState([{}]);
-    const [chatId, setChatId] = useState('bffd64d7-e003-4f77-a6b6-9a24653bef26');
+    const [chatId, setChatId] = useState('');
     const[newChat, setNewChat] = useState('');
     const[user, setUser] = useState('');
     const [newMsg, setNewMsg] = useState('');
