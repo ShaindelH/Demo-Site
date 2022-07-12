@@ -1,1 +1,1 @@
-Uncompleted school assignment
+Demo Site to learn the basics of React
